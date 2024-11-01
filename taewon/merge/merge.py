@@ -21,6 +21,6 @@ merged_df['text'] = merged_df['text'].str.strip().str.replace(r"(^['\"]|['\"]$)"
 merged_df = merged_df.sort_values('ID')
 
 # 병합된 DataFrame을 새로운 CSV 파일로 저장합니다.
-merged_df.to_csv('train.csv', index=False)
+merged_df.to_csv('LLM_train.csv', index=False)
 
-print("파일 병합 완료. 'train.csv'로 저장되었습니다.")
+print("파일 병합 완료. 'LLM_train.csv'로 저장되었습니다.")

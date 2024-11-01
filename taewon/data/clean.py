@@ -14,6 +14,7 @@ from transformers import DataCollatorWithPadding
 from transformers import TrainingArguments, Trainer
 import evaluate
 from sklearn.ensemble import RandomForestClassifier
+from xgboost import XGBClassifier
 
 
 SEED = 456
@@ -22,7 +23,6 @@ np.random.seed(SEED)
 torch.manual_seed(SEED)
 torch.cuda.manual_seed(SEED)
 torch.cuda.manual_seed_all(SEED)
-
 
 # 토크나이저 및 모델 로드
 tokenizer = AutoTokenizer.from_pretrained("klue/bert-base")
@@ -153,6 +153,7 @@ for fold, (train_index, val_index) in enumerate(skf.split(embeddings, labels), 1
     # RandomForestClassifier 모델 학습
     #clf = LogisticRegression(multi_class='ovr', solver='lbfgs', max_iter=1000)
     clf = RandomForestClassifier(n_estimators=100, random_state=42)
+    #clf = XGBClassifier(n_estimators=100, use_label_encoder=False, random_state=42)
     clf.fit(X_train, y_train)
     
     # 검증 세트에 대한 예측 확률 저장
