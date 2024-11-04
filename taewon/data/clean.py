@@ -10,7 +10,6 @@ import random
 import os
 import evaluate
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import classification_report
 from sklearn.preprocessing import normalize
 
 SEED = 456
@@ -29,8 +28,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 
 BASE_DIR = os.getcwd()
-DATA_DIR = os.path.join(BASE_DIR, '../data')
-OUTPUT_DIR = os.path.join(BASE_DIR, '../output')
+OUTPUT_DIR = os.path.join(BASE_DIR, '../outputs')
 
 # 데이터 로드
 clean_data = pd.read_csv(os.path.join('text_cleaned.csv'))
