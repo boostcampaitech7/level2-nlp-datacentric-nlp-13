@@ -2,7 +2,7 @@ from googletrans import Translator
 import pandas as pd
 import time
 
-train_df = pd.read_csv("../_llm_data/1_label_cleanded_train_0.00_0.60.csv")
+train_df = pd.read_csv("../_llm_data/2_label_cleaned_train_025_040.csv")
 df = pd.DataFrame(train_df)
 
 # print(df.head())
@@ -37,4 +37,4 @@ for idx, row in df.iterrows():
 
 # 결과 출력
 print(df)
-df.to_csv('result_eng.csv', index=False, encoding='utf-8-sig')
+df.to_csv('result_eng2.csv', index=False, encoding='utf-8-sig')
