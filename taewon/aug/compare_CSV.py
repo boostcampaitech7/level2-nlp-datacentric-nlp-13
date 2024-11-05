@@ -6,14 +6,8 @@ def compare_csv_files(file1_path, file2_path, output_path):
     df1 = pd.read_csv(file1_path)
     df2 = pd.read_csv(file2_path)
 
-    # 'ID'와 'target' 열이 있는지 확인
-    required_columns = ['ID', 'target']
-    for df in [df1, df2]:
-        if not all(col in df.columns for col in required_columns):
-            raise ValueError(f"CSV 파일에 'ID'와 'target' 열이 모두 있어야 합니다.")
-
     # 두 DataFrame을 'ID'를 기준으로 병합
-    merged_df = pd.merge(df1[['ID', 'target']], df2[['ID', 'target']], on='ID', suffixes=('_1', '_2'))
+    merged_df = pd.merge(df1[['ID', 'text','target']], df2[['ID', 'text','target']], on='ID', suffixes=('_1', '_2'))
 
     # target 값이 다른 행 찾기
     diff_rows = merged_df[merged_df['target_1'] != merged_df['target_2']]
@@ -21,6 +15,7 @@ def compare_csv_files(file1_path, file2_path, output_path):
     # 결과 DataFrame 생성
     result_df = pd.DataFrame({
         'ID': diff_rows['ID'],
+        'text': diff_rows['text_1'],
         'target_file1': diff_rows['target_1'],
         'target_file2': diff_rows['target_2']
     })

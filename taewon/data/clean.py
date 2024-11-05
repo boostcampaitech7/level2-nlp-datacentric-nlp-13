@@ -10,7 +10,6 @@ import random
 import os
 import evaluate
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import classification_report
 from sklearn.preprocessing import normalize
 
 SEED = 456
@@ -29,8 +28,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 
 BASE_DIR = os.getcwd()
-DATA_DIR = os.path.join(BASE_DIR, '../data')
-OUTPUT_DIR = os.path.join(BASE_DIR, '../output')
+OUTPUT_DIR = os.path.join(BASE_DIR, '../outputs')
 
 # 데이터 로드
 clean_data = pd.read_csv(os.path.join('text_cleaned.csv'))
@@ -141,13 +139,16 @@ predicted_labels = rf_classifier.predict(noise_embeddings)
 # 노이즈 데이터의 라벨 교정
 noise_data['corrected_target'] = predicted_labels
 
-# 클린 데이터와 교정된 노이즈 데이터 합치기
-combined_data = pd.concat([
+'''combined_data = pd.concat([
     clean_data[['ID', 'text', 'target']], 
     noise_data[['ID', 'text', 'corrected_target']].rename(columns={'corrected_target': 'target'})
 ], ignore_index=True)
+'''
+
+# 클린 데이터와 교정된 노이즈 데이터 합치기
+combined_data = noise_data[['ID', 'text', 'corrected_target']].rename(columns={'corrected_target': 'target'})
 
 # 결과 저장
-output_path = 'train.csv'
+output_path = 'clean_label.csv'
 combined_data.to_csv(output_path, index=False, columns=['ID', 'text', 'target'])
-print(f"\n결합된 데이터가 {output_path}에 저장되었습니다.")
+print(f"\n교정된 데이터가 {output_path}에 저장되었습니다.")
