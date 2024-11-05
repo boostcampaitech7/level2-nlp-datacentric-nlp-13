@@ -133,52 +133,22 @@ noise_embeddings = get_embeddings(noise_data['text'].tolist(), model, tokenizer,
 rf_classifier = RandomForestClassifier(n_estimators=100, random_state=SEED)
 rf_classifier.fit(clean_embeddings, clean_data['target'])
 
-###
-# 노이즈 데이터에 대한 예측 확률 계산
-predicted_probs = rf_classifier.predict_proba(noise_embeddings)
-
-# 최대 확률이 alpha 미만인 샘플 필터링
-alpha = 0.7  # 예를 들어, alpha를 0.7로 설정
-max_probs = np.max(predicted_probs, axis=1)  # 각 샘플의 최대 확률 계산
-
-# 최대 확률을 계산하여 max_probs 열로 추가
-noise_data['max_probs'] = np.max(predicted_probs, axis=1)
-noise_data.to_csv('max_probs.csv', index=False)
-
-# filtered_indices = np.where(max_probs >= alpha)[0]  # alpha 이상인 샘플의 인덱스
-
-# # 노이즈 데이터에서 필터링된 샘플만 남기기
-# filtered_noise_data = noise_data.iloc[filtered_indices].copy()
-
-# # 필터링된 데이터의 라벨을 모델의 예측 라벨로 교체
-# filtered_noise_data['corrected_target'] = rf_classifier.predict(noise_embeddings[filtered_indices])
-
-# # 클린 데이터와 필터링된 노이즈 데이터 결합
-# combined_data = pd.concat([
-#     clean_data[['ID', 'text', 'target']], 
-#     filtered_noise_data[['ID', 'text', 'corrected_target']].rename(columns={'corrected_target': 'target'})
-# ], ignore_index=True)
-
-# # 결과 저장
-# output_path = 'train_filtered.csv'
-# combined_data.to_csv(output_path, index=False, columns=['ID', 'text', 'target'])
-# print(f"\n결합된 데이터가 {output_path}에 저장되었습니다.")
-
-###
-
 # 노이즈 데이터에 대한 예측
 predicted_labels = rf_classifier.predict(noise_embeddings)
 
 # 노이즈 데이터의 라벨 교정
 noise_data['corrected_target'] = predicted_labels
 
-# 클린 데이터와 교정된 노이즈 데이터 합치기
-combined_data = pd.concat([
+'''combined_data = pd.concat([
     clean_data[['ID', 'text', 'target']], 
     noise_data[['ID', 'text', 'corrected_target']].rename(columns={'corrected_target': 'target'})
 ], ignore_index=True)
+'''
+
+# 클린 데이터와 교정된 노이즈 데이터 합치기
+combined_data = noise_data[['ID', 'text', 'corrected_target']].rename(columns={'corrected_target': 'target'})
 
 # 결과 저장
-output_path = 'train.csv'
+output_path = 'clean_label.csv'
 combined_data.to_csv(output_path, index=False, columns=['ID', 'text', 'target'])
-print(f"\n결합된 데이터가 {output_path}에 저장되었습니다.")
+print(f"\n교정된 데이터가 {output_path}에 저장되었습니다.")
