@@ -1,3 +1,7 @@
+"""
+주어진 csv 파일(ID,text,target)에서 target을 기준으로 분리하여 각각 csv 파일로 저장하는 코드
+파일 경로 수정이 필요합니다.
+"""
 import pandas as pd
 
 # CSV 파일 불러오기
