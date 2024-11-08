@@ -13,7 +13,7 @@
 - Private Leader Board 
 <img width="700" alt="private_leader_board" src="https://github.com/user-attachments/assets/03c1ab2d-250d-433c-bd9d-4f94f721fe74">
 
-- [📈 NLP 13조 Project Wrap-Up report 살펴보기](https://github.com/user-attachments/files/17536172/NLP_13.Wrap-Up.pdf)
+- [📈 NLP 13조 Project Wrap-Up report 살펴보기](https://github.com/boostcampaitech7/level2-nlp-datacentric-nlp-13/issues/3#issuecomment-2463904170)
 
 <br>
 
