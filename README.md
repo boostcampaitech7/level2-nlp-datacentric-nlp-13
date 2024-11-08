@@ -1,4 +1,4 @@
-# Level 2 Project :: 주제 분류 프로젝트
+# Level 2 Project : 주제 분류 프로젝트
 
 ### 📝 Abstract
 - 이 프로젝트는 네이버 부스트 캠프 AI-Tech 7기 NLP Level 2 기초 프로젝트 경진대회로, Dacon과 Kaggle과 유사한 대회형 방식으로 진행되었다.
@@ -32,7 +32,7 @@
 
 | 이름 | 역할 |
 | :---: | --- |
-| **`권지수`** | **Text/Label noise split**, **Text cleaning**, **Prompt-based Generation** |
+| **`권지수`** | **Text/Label Noise split**, **Text cleaning**, **Prompt-based Generation** |
 | **`김성은`** | **Text/Label Noise split**, **Back-translation**(Google Translate), **Prompt-based Generation** |
 | **`김태원`** | **EDA**, **Re-labeling**, **Evol-Instruct LLM for Augmentation**  |
 | **`이한서`** | **Text/Label noise split**, **Text cleaning**, **Back-translation**(DeepL), **Prompt-based Generation** |
@@ -43,7 +43,7 @@
 ## 🖥️ Project Introduction 
 
 
-| **프로젝트 주제** | 주어진 뉴스 헤드라인으로부터 해당 뉴스의 주제를 분류하되, 모델 구조의 변경 없이 Data-Centric 관점으로 해결|
+| **프로젝트 주제** |주어진 뉴스 헤드라인으로부터 해당 뉴스의 주제를 분류하되, 모델 구조의 변경 없이 Data-Centric 관점으로 해결|
 | :---: | --- |
 | **프로젝트 구현내용** | LLM을 활용해 데이터의 텍스트 노이즈와 라벨 노이즈를 분류한 뒤, LLM으로 텍스트를 정제하고 Cleanlab으로 라벨을 정제했다. 그 후 한국어-일본어로 역번역하여 데이터를 증강하고, 중복 데이터를 제거하여 최적의 학습 데이터를 생성한 뒤 분류를 진행했다.|
 | **개발 환경** |**• `GPU` :** Tesla V100(32G RAM) 서버 4개 <br> **• `개발 Tool` :** Jupyter notebook, VS Code [서버 SSH연결]|
@@ -62,7 +62,7 @@
 **Data**
 - Noise/Cleaned: `/split_train_data`
 - Back-Translation: `/backtranslation_data`
-- train: `/data`
+- Train: `/data`
 
 ### 📄 코드 설명
 
@@ -98,30 +98,27 @@
 <br>
 
 ## 📐 Project Ground Rule
->팀 협업을 위해 프로젝트 관련 Ground Rule을 설정하여 프로젝트가 원활하게 돌아갈 수 있도록 규칙을 정했으며, 날짜 단위로 간략한 목표를 설정하여 협업을 원활하게 진행할 수 있도록 계획하여 진행했다.
+> 팀 협업을 위해 프로젝트 관련 Ground Rule을 설정하여 프로젝트가 원활하게 돌아갈 수 있도록 규칙을 정했으며, 날짜 단위로 간략한 목표를 설정하여 협업을 원활하게 진행할 수 있도록 계획하여 진행했다.
 
-**- `Server 관련`** : 권지수, 김성은, 이한서, 정주현 캠퍼는 각자 서버를 생성해 모델 실험을 진행하고, 김태원 캠퍼는 서버가 유휴 상태인 서버에서 실험을 진행했다.
-
-**- `Git 관련`** : exp branch에 각자 폴더를 생성해 작업하고, 공통으로 사용할 파일은 main에 push 하는 방법으로 협업했다.
-
-**- `Submission 관련`** : 대회 마감 5일 전까지는 자유롭게 제출하고, 5일 전부터는 인당 2회씩 분배했다.
-
-**- `Notion 관련`** : 원활한 아이디어 브레인스토밍과 분업을 위해 회의를 할 경우 노션에 기록하며, 연구 및 실험결과의 기록을 공유했다.
+- **`Server`**: 권지수, 김성은, 이한서, 정주현 캠퍼는 각자 서버를 생성해 모델 실험을 진행하고, 김태원 캠퍼는 서버가 유휴 상태인 서버에서 실험을 진행했다.
+- **`Git`**: `exp` branch에 각자 폴더를 생성해 작업하고, 공통으로 사용할 파일은 main에 push 하는 방법으로 협업했다.
+- **`Submission`**: 대회 마감 5일 전까지는 자유롭게 제출하고, 5일 전부터는 인당 2회씩 분배했다.
+- **`Notion`**: 원활한 아이디어 브레인스토밍과 분업을 위해 회의를 할 경우 노션에 기록하며, 연구 및 실험결과의 기록을 공유했다.
 
 <br>
 
 ## 🗓 Project Procedure: 총 2주 진행
 - **(1~5 일차)**: 데이터 전처리 및 증강
-- **(6~11 일차)**: clean lab을 활용한 데이터 노이즈 정제 및 데이터 생성 실험
+- **(6~11 일차)**: `clean lab`을 활용한 데이터 노이즈 정제 및 데이터 생성 실험
 
 <br>
 
 ## 💻 Getting Started
 
-### ⚠️  How To install Requirements
+### ⚠️ How To Install Requirements
 ```bash
 # 필요 라이브러리 설치
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 ### ⌨️ How To Make Train Set
