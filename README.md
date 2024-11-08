@@ -132,11 +132,11 @@ filtering.ipynb
 # prepare_train.sh 코드 실행 : Train dataset 을 만들기 위한 backtranslate_DeepL_JP.py,
 # correct_label.py, postprocess_and_merge.py, text_clean.py, total_clean.py 실행
 chmod +x prepare_train.sh # 권한 추가
-./prepare_train.sh
+./prepare_train.sh # 실행
 ```
 
 ### ⌨️ How To Test
 ```bash
 # baseline code 실행
-baseline.ipynb
+baseline_code.ipynb
 ```
