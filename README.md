@@ -1,25 +1,25 @@
-# Level 2 Project : 주제 분류 프로젝트
+# Level 2: 주제 분류 프로젝트 (Data-Centric Topic Classification)
 
 ### 📝 Abstract
-- 이 프로젝트는 네이버 부스트 캠프 AI-Tech 7기 NLP Level 2 기초 프로젝트 경진대회로, Dacon과 Kaggle과 유사한 대회형 방식으로 진행되었다.
-- Data-Centric Topic Classification는 주어진 뉴스 헤드라인으로부터 해당 뉴스의 주제를 `0`~`6`의 정수 레이블로 분류하는 것으로, 모델 구조의 변경 없이 Data-Centric 관점으로 해결해보았다.
+- 이 프로젝트는 네이버 부스트캠프 AI Tech 7기 NLP Level 2 기초 프로젝트 경진대회로, Dacon, Kaggle과 유사한 대회형 방식으로 진행되었다.
+- Data-Centric Topic Classification는 주어진 뉴스 헤드라인으로부터 해당 뉴스의 주제를 `0`~`6`의 정수 레이블로 분류하는 것으로, 모델 구조의 변경 없이 Data-Centric 관점으로 해결함을 목표로 하였다.
 
 <br>
 
 ## Project Leader Board 
-- Public Leader Board
+- Public
 <img width="700" alt="public_leader_board" src="https://github.com/user-attachments/assets/423cee6f-c285-4b18-888a-574d05ab2c15">
 
-- Private Leader Board 
+- Private
 <img width="700" alt="private_leader_board" src="https://github.com/user-attachments/assets/03c1ab2d-250d-433c-bd9d-4f94f721fe74">
 
-- [📈 NLP 13조 Project Wrap-Up report 살펴보기](https://github.com/user-attachments/files/17674538/DataCentric_13.Wrap-Up.pdf)
+- [📈 Project Wrap-Up Report 살펴보기](https://github.com/user-attachments/files/17674538/DataCentric_13.Wrap-Up.pdf)
 
 <br>
 
 ## 🧑🏻‍💻 Team Introduction & Members 
 
-> Team name : 스빈라킨스배 [ NLP 13조 ]
+> Team Name : 스빈라킨스배 [ NLP 13조 ]
 
 ### 👨🏼‍💻 Members
 권지수|김성은|김태원|이한서|정주현|
