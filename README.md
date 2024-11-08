@@ -32,11 +32,11 @@
 
 | 이름 | 역할 |
 | :---: | --- |
-| **`권지수`** | **Text/Label Noise split**, **Text cleaning**, **Prompt-based Generation** |
-| **`김성은`** | **Text/Label Noise split**, **Back-translation**(Google Translate), **Prompt-based Generation** |
-| **`김태원`** | **EDA**, **Re-labeling**, **Evol-Instruct LLM for Augmentation**  |
-| **`이한서`** | **Text/Label noise split**, **Text cleaning**, **Back-translation**(DeepL), **Prompt-based Generation** |
-| **`정주현`** | **Re-labeling**, **ML model searching** |
+| **`권지수`** | **Text/Label Noise Split**, **Text Cleaning**, **Prompt-Based Generation** |
+| **`김성은`** | **Text/Label Noise Split**, **Back-Translation**(Google Translate), **Prompt-Based Generation** |
+| **`김태원`** | **EDA**, **Re-Labeling**, **Evol-Instruct LLM for Augmentation**  |
+| **`이한서`** | **Text/Label Noise Split**, **Text Cleaning**, **Back-translation**(DeepL), **Prompt-Based Generation** |
+| **`정주현`** | **Re-Labeling**, **ML Model Searching** |
 
 <br>
 
@@ -108,8 +108,8 @@
 <br>
 
 ## 🗓 Project Procedure: 총 2주 진행
-- **(1~5 일차)**: 데이터 전처리 및 증강
-- **(6~11 일차)**: `clean lab`을 활용한 데이터 노이즈 정제 및 데이터 생성 실험
+- **1~5 일차**: 데이터 전처리 및 증강
+- **6~11 일차**: `Cleanlab`을 활용한 데이터 노이즈 정제 및 데이터 생성 실험
 
 <br>
 
