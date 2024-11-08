@@ -2,7 +2,7 @@
 
 ### 📝 Abstract
 - 이 프로젝트는 네이버 부스트 캠프 AI-Tech 7기 NLP Level 2 기초 프로젝트 경진대회로, Dacon과 Kaggle과 유사한 대회형 방식으로 진행되었다.
-- ODQA(Open-Domain Question Answering) task는 주어진 질문에 대해 대규모 문서 집합에서 관련 정보를 검색하고, 그 정보로부터 정확한 답변을 추출하는 것이 주제로, 모든 팀원이 데이터 전처리부터 앙상블까지 AI 모델링의 전 과정을 함께 협업했다.
+- Data-Centric Topic Classification는 주어진 뉴스 헤드라인으로부터 해당 뉴스의 주제를 `0`~`6`의 정수 레이블로 분류하는 것으로, 모델 구조의 변경 없이 Data-Centric 관점으로 해결해보았다.
 
 <br>
 
@@ -24,7 +24,7 @@
 ### 👨🏼‍💻 Members
 권지수|김성은|김태원|이한서|정주현|
 :-:|:-:|:-:|:-:|:-:
-<img src='https://github.com/user-attachments/assets/ab4b7189-ec53-41be-8569-f40619b596ce' height=125 width=100></img>|<img src='https://github.com/user-attachments/assets/49dc0e59-93ee-4e08-9126-4a3deca9d530' height=125 width=100></img>|<img src='https://github.com/user-attachments/assets/a15b0f0b-cd89-412b-9b3d-f59eb9787613' height=125 width=100></img>|<img src='https://github.com/user-attachments/assets/11b2ed88-bf94-4741-9df5-5eb2b9641a9b' height=125 width=100></img>|<img src='https://github.com/user-attachments/assets/3e2d2a7e-1c64-4cb7-97f6-a2865de0c594' height=125 width=100></img>
+ <img src='https://github.com/user-attachments/assets/ab4b7189-ec53-41be-8569-f40619b596ce' height=125 width=100></img>|<img src='https://github.com/user-attachments/assets/49dc0e59-93ee-4e08-9126-4a3deca9d530' height=125 width=100></img>|<img src='https://github.com/user-attachments/assets/a15b0f0b-cd89-412b-9b3d-f59eb9787613' height=125 width=100></img>|<img src='https://github.com/user-attachments/assets/11b2ed88-bf94-4741-9df5-5eb2b9641a9b' height=125 width=100></img>|<img src='https://github.com/user-attachments/assets/3e2d2a7e-1c64-4cb7-97f6-a2865de0c594' height=125 width=100></img>
 [Github](https://github.com/Kwon-Jisu)|[Github](https://github.com/ssungni)|[Github](https://github.com/chris40461)|[Github](https://github.com/beaver-zip)|[Github](https://github.com/peter520416)
 <a href="mailto:wltn80609@ajou.ac.kr" target="_blank"><img src="https://img.shields.io/badge/Gmail-EA4335?style&logo=Gmail&logoColor=white"/></a>|<a href="mailto:sunny020111@ajou.ac.kr" target="_blank"><img src="https://img.shields.io/badge/Gmail-EA4335?style&logo=Gmail&logoColor=white"/></a>|<a href="mailto:chris40461@gmail.com" target="_blank"><img src="https://img.shields.io/badge/Gmail-EA4335?style&logo=Gmail&logoColor=white"/></a>|<a href="mailto:beaver.zip@gmail.com" target="_blank"><img src="https://img.shields.io/badge/Gmail-EA4335?style&logo=Gmail&logoColor=white"/></a>|<a href="mailto:peter520416@gmail.com" target="_blank"><img src="https://img.shields.io/badge/Gmail-EA4335?style&logo=Gmail&logoColor=white"/></a>|
 
@@ -32,64 +32,66 @@
 
 | 이름 | 역할 |
 | :---: | --- |
-| **`권지수`** | **데이터 EDA**, **LLM을 통한 데이터 증강**, **MRC 모델 탐색 및 parameter 조정**, **앙상블** |
-| **`김성은`** | **데이터 EDA**(문장 길이, Query문), **데이터 증강**(AEDA, Back translation, llm, lmqg), **앙상블** |
-| **`김태원`** | **DPR 구현**, **Hybrid Retriever 구현 및 Score function 세분화**, **Soft voting 앙상블 구현**  |
-| **`이한서`** | **Reader 모델 개선**, **MRC 모델 탐색 및 parameter 조정**, **데이터 증강 및 변형 시도**, <br> **Score Normalize 를 통한 Retrieval 방법 개선** , **앙상블** |
-| **`정주현`** | **데이터 EDA**, **DPR 구현**, **Kfold 구현**, **MRC 모델 탐색 및 앙상블** |
+| **`권지수`** | **Text/Label noise split**, **Text cleaning**, **Prompt-based Generation** |
+| **`김성은`** | **Text/Label Noise split**, **Back-translation**(Google Translate), **Prompt-based Generation** |
+| **`김태원`** | **EDA**, **Re-labeling**, **Evol-Instruct LLM for Augmentation**  |
+| **`이한서`** | **Text/Label noise split**, **Text cleaning**, **Back-translation**(DeepL), **Prompt-based Generation** |
+| **`정주현`** | **Re-labeling**, **ML model searching** |
 
 <br>
 
 ## 🖥️ Project Introduction 
 
 
-|**프로젝트 주제**| Open-Domain Question Answering : 사전에 구축되어있는 Knowledge resource 에서 질문에 대답할 수 있는 문서를 찾고, 해당 문서에서 질문에 맞는 답변을 추출하는 NLP Task|
+| **프로젝트 주제** | 주어진 뉴스 헤드라인으로부터 해당 뉴스의 주제를 분류하되, 모델 구조의 변경 없이 Data-Centric 관점으로 해결|
 | :---: | --- |
-| **프로젝트 구현내용** | Dense Passage Retrieval (DPR) 모델을 학습하여 질문과 문서 간의 임베딩을 생성한다. 이후, Train dataset을 활용하여 Machine Reading Comprehension (MRC) 모델을 학습하고, 이를 통해 ODQA 예측 파일을 생성한다. 마지막으로, 여러 예측 결과를 앙상블하여 최종적인 답변을 도출한다. |
-| **개발 환경** |**• `GPU` :** Tesla V100 서버 4개 (RAM32G)<br> **• `개발 Tool` :** Jupyter notebook, VS Code [서버 SSH연결]
-| **협업 환경** |**• `Github Repository` :** Baseline 코드 공유 및 버전 관리, 개인 branch를 사용해 작업상황 공유 <br>**• `Notion` :** ODQA 프로젝트 페이지를 통한 역할분담, 실험 가설 설정 및 결과 공유 <br>**• `SLACK, Zoom` :** 실시간 대면/비대면 회의|
+| **프로젝트 구현내용** | LLM을 활용해 데이터의 텍스트 노이즈와 라벨 노이즈를 분류한 뒤, LLM으로 텍스트를 정제하고 Cleanlab으로 라벨을 정제했다. 그 후 한국어-일본어로 역번역하여 데이터를 증강하고, 중복 데이터를 제거하여 최적의 학습 데이터를 생성한 뒤 분류를 진행했다.|
+| **개발 환경** |**• `GPU` :** Tesla V100(32G RAM) 서버 4개 <br> **• `개발 Tool` :** Jupyter notebook, VS Code [서버 SSH연결]|
+| **협업 환경** |**• `Github Repository` :** 데이터, 코드 버전 관리 및 작업 상황 공유 <br>**• `Notion` :** 역할 분담, 실험 가설 및 검증 결과 공유 <br>**• `SLACK, Zoom` :** 실시간 비대면 회의|
 
 <br>
 
 ## 📁 Project Structure
 
 ### 🗂️ 디렉토리 구조 설명
-- 학습 데이터 경로: `/data`
-- 학습 메인 코드: `train.py`
-- 학습 데이터셋 경로: `/data/train_dataset/train`
-- 테스트 데이터셋 경로: `/data/train_dataset/validation`
 
-### 📄 코드 구조 설명
+**Code**
+- Text/Label Noise Split: `filtering.ipynb`
+- Text/Label Cleaning, Back-Translation, Baseline: `/code`
 
-> script 파일을 생성하여, 하이퍼 파라미터의 조정 및 train,test,ensemble 을 용이하게 했다.
+**Data**
+- Noise/Cleaned: `/split_train_data`
+- Back-Translation: `/backtranslation_data`
+- train: `/data`
 
-- **Dense Retriever Train** : `dense_train.py`
-- **Train** : `train.sh`
-- **Predict** : `test.sh`
-- **Ensemble** : `softvoting.py`
-- **최종 제출 파일** : `/ensemble/predictions.json`
+### 📄 코드 설명
+
+- `filtering.ipynb`: `train.csv`에서 Text/Label Noise를 구분해 `text_noise.csv`, `labe_noise.csv`를 생성
+- `text_clean.py`: `text_noise.csv`의 text를 정제한 `text_cleaned.csv`를 생성
+- `correct_label.py`: `label
+
+- filtering -> text_clean -> correct_label -> total_clean -> backtranslate_DeepL_JP -> postprocess_and_merge -> baseline_code
 
 ```
-📦 base
-┣ 📂 dense_model
-┣ 📂 ensemble
-┃ ┗ diff.py
-┣ 📂 models
-┣ 📂 nbest
-┣ arguments.py
-┣ dense_encoder.py
-┣ dense_train.py
-┣ dense_util.py
-┣ eval.sh
-┣ inference.py
-┣ requirements.txt
-┣ retrieval.py
-┣ softvoting.py
-┣ test.sh
-┣ train.py
-┣ train.sh
-┣ trainer_qa.py
-┗ utils_qa.py
+📂 backtranslation_data
+┃ ┗  backtranslated_DeepL_JP.csv
+📂 code
+┃ ┣  backtranslate_DeepL_JP.py
+┃ ┣  baseline_code.ipynb
+┃ ┣  correct_label.py
+┃ ┣  postprocess_and_merge.py
+┃ ┣  text_clean.py
+┃ ┗  total_clean.py
+📂 data
+┃ ┗  train.csv
+📂 split_train_data
+┃ ┣  label_noise.csv
+┃ ┣  merge_text_label_cleaned.csv
+┃ ┣  text_cleaned.csv
+┃ ┣  text_noise.csv
+┃ ┗  total_cleaned.csv
+┣ filtering.ipynb
+┗ requirements.txt
  ```
 <br>
 
@@ -98,7 +100,7 @@
 
 **- a. `Server 관련`** : 권지수, 김성은, 이한서, 정주현 캠퍼는 각자 서버를 생성해 모델 실험을 진행하고, 김태원 캠퍼는 서버가 유휴 상태인 서버에서 실험을 진행했다.
 
-**- b. `Git 관련`** : 각자 branch 생성해 작업하고, 공통으로 사용할 파일은 main에 push 하는 방법으로 협업했다.
+**- b. `Git 관련`** : exp branch에 각자 폴더를 생성해 작업하였고, 공통으로 사용할 파일은 main에 push 하는 방법으로 협업했다.
 
 **- c. `Submission 관련`** : 대회 마감 5일 전까지는 자유롭게 제출했고, 5일 전부터는 인당 2회씩 분배했다.
 
@@ -106,7 +108,7 @@
 
 <br>
 
-## 🗓 Project Procedure: 총 4주 진행
+## 🗓 Project Procedure: 총 2주 진행
 - **`(1~5 일차)`**: 기본 Baseline format 해석 및 script 구현
 - **`(6~12 일차)`**: 데이터 EDA 및 구조 파악, 데이터 전처리, MRC 모델 탐색
 - **`(12~20 일차)`** : MRC 모델 하이퍼 파라미터 튜닝(wandb), Dense Retriever 구현
@@ -152,8 +154,8 @@ pip install -r requirements.txt
 
 ### ⌨️ How To Train & Test
 ```bash
-# Dense Retriever 를 위한 passage , question pt 파일 생성
-python3 dense_train.py
+# label_noise.csv, text_noise.csv 파일 생성
+filtering.ipynb
 
 # train.sh 코드 실행 : MRC 를 위한 Train dataset 에 대한 script file 실행
 chmod +x train.sh # 권한 추가
