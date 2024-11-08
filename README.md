@@ -8,10 +8,10 @@
 
 ## Project Leader Board 
 - Public Leader Board
-<img width="700" alt="public_leader_board" src="https://github.com/user-attachments/assets/d66e3034-0f85-4128-badd-efa221d68436">
+<img width="700" alt="public_leader_board" src="https://github.com/user-attachments/assets/423cee6f-c285-4b18-888a-574d05ab2c15">
 
 - Private Leader Board 
-<img width="700" alt="private_leader_board" src="https://github.com/user-attachments/assets/0fe1d855-1ac2-4eb2-b7b0-121dc5f13ce9">
+<img width="700" alt="private_leader_board" src="https://github.com/user-attachments/assets/03c1ab2d-250d-433c-bd9d-4f94f721fe74">
 
 - [📈 NLP 13조 Project Wrap-Up report 살펴보기](https://github.com/user-attachments/files/17536172/NLP_13.Wrap-Up.pdf)
 
@@ -124,24 +124,19 @@
 pip install -r requirements.txt
 ```
 
-### ⌨️ How To Train & Test
+### ⌨️ How To Make Train Set
 ```bash
 # label_noise.csv, text_noise.csv 파일 생성
 filtering.ipynb
 
-# train.sh 코드 실행 : MRC 를 위한 Train dataset 에 대한 script file 실행
-chmod +x train.sh # 권한 추가
-./train.sh
-
-# test.sh 코드 실행 : Retriever 을 사용해서 ODQA task 수행
-chmod +x test.sh # 권한 추가
-./test.sh
-
-# 이후, nbest_prediction.json 들이 ./nbest 에 저장됨
+# prepare_train.sh 코드 실행 : Train dataset 을 만들기 위한 backtranslate_DeepL_JP.py,
+# correct_label.py, postprocess_and_merge.py, text_clean.py, total_clean.py 실행
+chmod +x prepare_train.sh # 권한 추가
+./prepare_train.sh
 ```
 
-### ⌨️ How To Ensemble
+### ⌨️ How To Test
 ```bash
-# ./nbest 에 생성된 json 파일들을 모두 확률 값에 따라서 soft voting 하여 ensemble
-python3 softvoting.py
+# baseline code 실행
+baseline.ipynb
 ```
