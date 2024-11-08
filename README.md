@@ -68,9 +68,11 @@
 
 - `filtering.ipynb`: `train.csv`에서 Text/Label Noise를 구분해 `text_noise.csv`, `labe_noise.csv`를 생성
 - `text_clean.py`: `text_noise.csv`의 text를 정제한 `text_cleaned.csv`를 생성
-- `correct_label.py`: `label
-
-- filtering -> text_clean -> correct_label -> total_clean -> backtranslate_DeepL_JP -> postprocess_and_merge -> baseline_code
+- `correct_label.py`: `label_noise.csv`의 label을 교정한 뒤, `text_cleaned.csv`와 합친 `merge_text_label_cleaned.csv`를 생성
+- `total_clean.py`: `merge_text_label_clean.csv`의 label을 교정해 `total_cleaned.csv`를 생성
+- `backtranslate_DeepL_JP.py`: `total_cleaned.csv`를 한-일-한 역번역해 `backtranslated_DeepL_JP.csv`를 생성
+- `postprocess_and_merge.py`: `total_cleaned.csv`와 `backtranslated_DeepL_JP.csv`를 후처리하여 합친 `train.csv`를 생성
+- `baseline_code.ipynb`: baseline code
 
 ```
 📂 backtranslation_data
@@ -100,47 +102,17 @@
 
 **- a. `Server 관련`** : 권지수, 김성은, 이한서, 정주현 캠퍼는 각자 서버를 생성해 모델 실험을 진행하고, 김태원 캠퍼는 서버가 유휴 상태인 서버에서 실험을 진행했다.
 
-**- b. `Git 관련`** : exp branch에 각자 폴더를 생성해 작업하였고, 공통으로 사용할 파일은 main에 push 하는 방법으로 협업했다.
+**- b. `Git 관련`** : exp branch에 각자 폴더를 생성해 작업하고, 공통으로 사용할 파일은 main에 push 하는 방법으로 협업했다.
 
-**- c. `Submission 관련`** : 대회 마감 5일 전까지는 자유롭게 제출했고, 5일 전부터는 인당 2회씩 분배했다.
+**- c. `Submission 관련`** : 대회 마감 5일 전까지는 자유롭게 제출하고, 5일 전부터는 인당 2회씩 분배했다.
 
 **- d. `Notion 관련`** : 원활한 아이디어 브레인스토밍과 분업을 위해 회의를 할 경우 노션에 기록하며, 연구 및 실험결과의 기록을 공유했다.
 
 <br>
 
 ## 🗓 Project Procedure: 총 2주 진행
-- **`(1~5 일차)`**: 기본 Baseline format 해석 및 script 구현
-- **`(6~12 일차)`**: 데이터 EDA 및 구조 파악, 데이터 전처리, MRC 모델 탐색
-- **`(12~20 일차)`** : MRC 모델 하이퍼 파라미터 튜닝(wandb), Dense Retriever 구현
-- **`(20~25 일차)`** : Dense Retriever 과 Sparse Retriever 을 사용한 Hybrid Retriever 구현
-- **`(26~28 일차)`** : 앙상블 진행 
-
-<br>
-
-## **MRC**
-* 우리는 먼저 Retriever - Reader 모델을 구현하기에 앞서, KorQuad data 에 대해서 pre-trained 된 모델을 사용해, 부족한 Train dataset 을 보강하여 학습하기로 하였다.
-<br>
-
-## **Retriever**
-* Retriever 모델의 경우, KorQuad data 를 통해 question, passage embedding 을 미리 학습하는 과정을 가진 Dense Retriever 과, BM25 를 사용한 Sparse Retriever 을 결합한 Hybrid Retriever 을 사용했다.
-* Hybrid Retriever 을 하는 방식은 크게 3가지 인데, 이 3가지를 모두 활용하여 passage 와 question 의 연관성을 최대로 학습하고, 사용하고자 하였다.
-
-| **Score Function Type**                       | **Description**                                                                                        |
-|-------------------------------------------|-----------------------------------------------------------------------------------------------------|
-| **1. λ x Dense Similarity + BM25 Score** | Dense Retriever와 BM25 점수를 결합하여 질문과 문서 간의 관계를 강화합니다. λ는 두 점수 간의 가중치를 조정합니다. |
-| **2. Reciprocal Rank Fusion (RRF)**      | 여러 Retriever의 랭킹을 기반으로 각 문서의 reciprocal rank를 합산하여 최종 점수를 계산합니다. |
-| **3. (λ x Dense Similarity + BM25 Score) → ko-reranker** | 1번의 Score 를 한국어 re-ranker에 입력하여 최종 랭킹을 정제하고 성능을 향상시킵니다.     |
-<br>
-
-## **Ensemble Model**
-
-* 최종적으로 3개의 json 파일을 softvoting 기법을 활용하여 사용했다.
-
-| **File Name**                             | **Score Function**                                   |
-|-------------------------------------------|-----------------------------------------------------|
-| nbest_predictions_op1.json               | λ x Dense Similarity + BM25 Score                   |
-| nbest_predictions_op2.json               | Reciprocal Rank Fusion (RRF)                        |
-| nbest_predictions_op3.json               | (λ x Dense Similarity + BM25 Score) → ko-reranker   |
+- **`(1~5 일차)**: 데이터 전처리 및 증강
+- **`(6~11 일차)**: clean lab을 활용한 데이터 노이즈 정제 및 데이터 생성 실험
 
 <br>
 
